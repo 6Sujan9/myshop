@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyShop Enterprise</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">MyShop</div>
+        <div class="search-bar">
+          <nav class="category-nav">
+            <div class="category-button">
+              <span style="font-size: 12px">
+                <strong>Browse</strong>
+              </span>
+              <br />
+              by Category
+            </div>
+            <ul class="categories">
+                <li class="category-item">
+                    <a href="#" onclick="filterByCategory(this,'Books')">Books</a>
+                </li>
+                <li class="category-item">
+                    <a href="#" onclick="filterByCategory(this,'Perfumes')">Perfume</a>
+                </li>
+                <li class="category-item">
+                  <a href="#" onclick="filterByCategory(this,'Electronics')">Electronics</a>
+                </li>
+                <ul class="subcategories dropdown">
+                  <li class="category-item">
+                    <a href="#" onclick="filterByCategory(this,'Electronics','Electronics 1')">Electronics 1</a>
+                  </li>
+                  <li class="category-item">
+                    <a href="#" onclick="filterByCategory(this,'Electronics','Electronics 2')">Electronics 2</a>
+                  </li>
+                </ul>
+            </ul>
+          </nav>
+          <form onsubmit="handleSubmit(event)">
+            <input type="text" placeholder="Search products" id="search-input">
+            <button id="search-button" type="submit">Search</button>
+          </form>
+        </div>
+    </header>
+    <section class="search-results" id="search-results">
+      <h2 id="search-results-value"></h2>
+      <form onsubmit="handleSubmit(event)" style="margin-bottom: 20px;">
+        <p><b>Filter By </b></p>
+        <p><b>Price</b></p>
+        <div>
+          <label for="min-price-input">Minimum Price:</label>
+          <br />
+          <span>0</span>
+          <input type="range" id="min-price-input" name="min-price-input" min="0" max="4700" step="1" value="0" oninput="updateValue(this.value,'min-price-value')">
+          <span id="min-price-value">0</span>
+        </div>
+        <div>
+          <label for="max-price-input">Maximum Price:</label>
+          <br />
+          <span>0</span>
+          <input type="range" id="max-price-input" name="max-price-input" min="0" max="4800" step="1" value="0" oninput="updateValue(this.value,'max-price-value')">
+          <span id="max-price-value">0</span>
+        </div>
+        <button class="filter-button" type="submit">Filter</button>
+      </form>
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Product I.D.</th>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody id="products-table-body">
+        </tbody>
+      </table>
+    </section>
+    <section class="hero" id="hero">
+        <div class="hero-content">
+          <h1>Welcome to MyShop</h1>
+          <p>Discover millions of products at unbeatable prices!</p>
+          <a href="#shop-now" class="shop-button">Shop Now</a>
+        </div>
+    </section>
+    <section class="featured-products" id="browse-by-category">
+      <h2 id="category-name"></h2>
+      <div class="product-grid" id="browse-by-category-grid">
+      </div>
+    </section>
+    <div id="featured">
+      <section class="featured-products" id="shop-now" data-category="Perfumes">
+        <h2>Perfumes</h2>
+        <div class="product-grid" id="perfume-grid">
+        </div>
+      </section>
+      <section class="featured-products" data-category="Books">
+        <h2>Books</h2>
+        <div class="product-grid" id="book-grid">
+        </div>
+      </section>
+      <section class="featured-products" data-category="Electronics">
+        <h2>Electronics</h2>
+        <div class="product-grid" id="electronics-grid">
+        </div>
+      </section>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 MyShop. All Rights Reserved.</p>
+    </footer>
+    <script src="index.js"></script>
+    <script>
+      function updateValue(value, id) {
+        const maxPrice = document.getElementById('max-price-input').value;
+        if((parseFloat(value) > parseFloat(maxPrice))) {
+          alert("min price couldn't be more than max price.");
+          document.getElementById(id).innerText = maxPrice;
+          document.getElementById('min-price-input').value = parseFloat(maxPrice);
+          return;
+        } else {
+          document.getElementById(id).innerText = value;
+        }
+      }
+    </script>
+</body>
+</html>
